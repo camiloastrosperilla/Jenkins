@@ -1,0 +1,26 @@
+1. Docker Installation on Fedora
+sudo dnf -y install dnf-plugins-core
+
+sudo dnf config-manager \
+--add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+//Instalar ce de docker.
+sudo dnf install docker-ce
+
+//Iniciar servicio de docker.
+sudo systemctl start docker
+
+//Habilitar servicio de docker.
+sudo systemctl enable docker
+
+//Adicionar usuario al grupo de docker.
+sudo usermod -aG docker camiloastros
+
+2. Instalar Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+//Asignar permisos de ejecución a docker-compose.
+sudo chmod u+x /usr/local/bin/docker-compose
+
+3. Instalar Jenkins
+//Crear jenkins_docker_compose.yaml
