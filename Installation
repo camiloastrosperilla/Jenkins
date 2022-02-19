@@ -4,23 +4,34 @@ sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager \
 --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 
-//Instalar ce de docker.
+//Install docker-ce.
 sudo dnf install docker-ce
 
-//Iniciar servicio de docker.
+//Start docker service.
 sudo systemctl start docker
 
-//Habilitar servicio de docker.
+//Enable docker service.
 sudo systemctl enable docker
 
 //Adicionar usuario al grupo de docker.
 sudo usermod -aG docker camiloastros
 
-2. Instalar Docker Compose
+//Grant permissions at /var/run/docker.sock
+sudo chmod 666 /var/run/docker.sock
+
+2. Install Docker Compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-//Asignar permisos de ejecución a docker-compose.
+//Grant permissions to execute docker-compose.
 sudo chmod u+x /usr/local/bin/docker-compose
 
-3. Instalar Jenkins
-//Crear jenkins_docker_compose.yaml
+3. Install Jenkins
+//Create jenkins_docker_compose.yaml
+
+4. First jenkins Configuration
+// localhost:8080 to see the jenkins screen
+
+5. Search first jenkins password
+// docker exec -it container_name_jenkins bash
+// search file /var/jenkins_home/secrets/initialAdminPassword
+
