@@ -1,15 +1,20 @@
-FROM centos #Pull centos Image
+FROM centos  #Install package openssh-server
 
 RUN yum -y install openssh-server  #Install package openssh-server
 
-RUN useradd remote_user && \  #Create remote_user
-  echo "1234" | passwd remote_user -- stdin && \  #Add passwd to remote_user
-  mkdir /home/remote_user/.ssh && \  #create ssh Dir
-  chmod 700 /home/remote_user/.ssh  #Add permission 700 at .ssh directory.
+RUN yum -y install -y passwd
 
-#Create key "ssh-keygen -f remote-key
-COPY remote-key.pub /home/remote_user/.ssh/authorized_keys  #cp public key.   
+RUN useradd remote_user && \  #Add passwd to remote_user
+  echo "1234" | passwd remote_user --stdin && \
+  mkdir /home/remote_user/.ssh && \
+  chmod 700 /home/remote_user/.ssh
 
-RUN /usr/sbin/sshd-keygen > /dev/null 2>&1  #Avoid generic error.
+COPY remote-key.pub /home/remote_user/.ssh/authorized_keys  #cp public key.  
 
-CMD /usr/sbin/sshd -D  #Start service sshd
+RUN chown remote_user:remote_user -R /home/remote_user && \
+    chmod 600 /home/remote_user/.ssh/authorized_keys
+
+RUN /usr/sbin/sshd-keygen > /dev/null 22>&1  #Avoid generic error.
+
+CMD /usr/sbin/sshd -D 
+
